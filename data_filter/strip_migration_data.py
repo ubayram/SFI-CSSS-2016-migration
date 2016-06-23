@@ -1,0 +1,62 @@
+import numpy
+
+def initialize_dict(dict_, str_):
+	if str_ not in dict_.keys():
+		dict_[str_] = 0
+	else:
+		dict_[str_] += 1
+
+	return dict_
+
+######################################################
+fo = open('../data/tracking_goose_data2.csv', 'r')
+
+i = 0
+for line in fo:
+	if i == 0:
+		data_ = line.split('\r')
+	else:
+		break
+
+f_spring = open('../results/spring_attributes_4hist.txt', 'w')
+f_fall =open('../results/fall_attributes_4hist.txt', 'w')
+
+spring_ = {}
+fall_ = {}
+
+for n in range(len(data_)):
+	local_attribute = data_[n].split(',')[6]
+	season = data_[n].split(',')[7]
+
+	if str(season)=='spring-migration':
+		#print >> f_spring, local_attribute
+		spring_ = initialize_dict(spring_, local_attribute)
+	elif str(season) == 'fall-migration':
+		#print >> f_fall, local_attribute
+		fall_ = initialize_dict(fall_, local_attribute)
+	else:
+		print 'Error'		
+
+#print spring_
+#print fall_
+f_names = open('../results/attribute_names.txt', 'w')
+
+string_list = []
+
+for i in spring_.keys():
+	if i not in string_list:
+		string_list.append(i)
+
+for j in fall_.keys():
+	if j not in string_list:
+		string_list.append(j)
+
+i = 0
+
+for k in range(len(string_list)):
+	i += 1
+	print >> f_names, i, string_list[i-1]
+	if string_list[i-1] in spring_.keys():
+		print >> f_spring, i, spring_[string_list[i-1]]
+	if string_list[i-1] in fall_.keys():
+		print >> f_fall, i, fall_[string_list[i-1]]
