@@ -1,3 +1,6 @@
+# Author: Ulya Bayram
+# Contact: ulyabayram@gmail.com
+
 import numpy
 
 def initialize_dict(dict_, str_):
@@ -9,17 +12,18 @@ def initialize_dict(dict_, str_):
 	return dict_
 
 ######################################################
-fo = open('../data/tracking_goose_data2.csv', 'r')
+fo = open('trackinggoosedata.txt', 'r')
 
 i = 0
+
 for line in fo:
 	if i == 0:
 		data_ = line.split('\r')
 	else:
 		break
 
-f_spring = open('../results/spring_attributes_4hist.txt', 'w')
-f_fall =open('../results/fall_attributes_4hist.txt', 'w')
+f_spring = open('filtered_data/spring_attributes_4hist.txt', 'w')
+f_fall =open('filtered_data/fall_attributes_4hist.txt', 'w')
 
 spring_ = {}
 fall_ = {}
