@@ -1,4 +1,3 @@
-# Author: Ulya Bayram
 # For each function's owner/author, see comments above each function
 from sys import argv
 
@@ -62,3 +61,83 @@ def separateBySeasonNYear():
 		outfile_spring.close()
 		outfile_fall.close()
 		infile.close()
+
+# Author: Ulya Bayram
+# Input file is csv file, output will be 2 txt files
+# separated by the seasons
+# First row of the input file is the headings, so skip the first
+def separateBySeason(fo):
+
+	#Open separate files for spring and fall migration
+	file_spring = open('filtered_data/migration_spring.txt','w')
+	file_fall   = open('filtered_data/migration_fall.txt','w')
+
+	i = 0
+	nan_counter = 0
+	for line in fo:
+		if i == 0:
+			i = 1
+			continue
+		else:
+			#Loop over all lines
+			date_time = line.split(',')[2]
+			date = date_time.split()[0]
+			time_ = date_time.split()[1]
+
+			long_ = line.split(',')[3]
+			lat_ = line.split(',')[4]
+			heading = line.split(',')[5]
+			height = line.split(',')[6]
+			
+			if len(height) == 0:
+				nan_counter += 1
+				height = 'nan'
+
+			# attribute is actually migration-stage
+			# but fall vs spring migration is also a stage, so attribute reduces confusion
+			attribute = line.split(',')[7]
+			attribute_id = findAttributeId(attribute)
+			current_season = line.split(',')[8]
+			bird_id =  line.split(',')[11]
+			bird_id = bird_id.replace('\"', '')
+
+			bird_id2 = line.split(',')[12]
+			bird_id2 = bird_id2.replace('\"', '')
+
+			if bird_id != bird_id2:
+				print "Id Missmatch ", bird_id, " ", bird_id2
+
+			if 'spring' in current_season:
+				print >> file_spring, date, time_, long_, lat_, heading, height, attribute, attribute_id, bird_id
+			if 'fall' in current_season:
+				print >> file_fall, date, time_, long_, lat_, heading, height, attribute, attribute_id, bird_id
+
+	print 'Number of missing height data in rows of complete data set ', str(nan_counter)
+ 
+# Author: Ulya Bayram
+# Function that maps attribute names (string) into specific id's - for easy plotting
+def findAttributeId(str_):
+	
+	f_attributes = open('filtered_data/attribute_names.txt', 'r')
+
+	att_vec = []
+	for line in f_attributes:
+		att_vec.append(line.split()[0])
+	str_ = str_.replace('\"', '')
+
+	return att_vec.index(str_)
+
+
+# Author: Ulya Bayram
+def getDay(date_str):
+
+# Author: Ulya Bayram
+def getTime(time_str):
+
+# Author: Ulya Bayram
+def getDeltaTime():
+
+# Author: Ulya Bayram
+# Function to compute -average- estimated speed of individual birds given gps tracking data
+def computeIndividualSpeed(file_):
+
