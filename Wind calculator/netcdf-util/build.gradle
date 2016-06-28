@@ -1,0 +1,22 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+	
+repositories {
+  	mavenLocal()    
+	maven {
+        url "https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases"
+    }
+	mavenCentral()
+}
+
+dependencies {
+    compile 'edu.ucar:netcdf:4.3.16'
+    compile 'edu.ucar:grib:4.3.16'
+    compile 'org.apache.commons:commons-collections4:4.0'
+    compile 'junit:junit:4+'
+}
+
+// disable all unit tests    
+test {
+    exclude '**/*.class'
+}
