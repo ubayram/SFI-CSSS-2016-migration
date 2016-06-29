@@ -244,13 +244,10 @@ if (handles.ready == 1)
             latitude_year_i = handles.lat_(index_);
             birds_year_i = handles.birds(index_);
             height_year_i = str2double(handles.height(index_));
+            bird_ids = [bird_ids unique(birds_year_i)];
+            
             scatter3(longitude_year_i, latitude_year_i, height_year_i, [], birds_year_i, 'filled');
-%             %Working on legend, doesn't quite work yet
-%             bird_ids = [bird_ids unique(birds_year_i)];
-%             bird_ids_c = mat2cell(bird_ids, ones(1,length(bird_ids)));
-%             bird_ids_c = cellfun(@(x) num2str(x), bird_ids_c, 'UniformOutput', false);
-%             legend(bird_ids_c);
-%             set(handles.axes1, 'zticklabel', {handles.date_(index_)});     
+            set(ax, 'zticklabel', {handles.date_(index_)});     
             hold on;
         end
         xlabel(handles.axes1,'longitude')
