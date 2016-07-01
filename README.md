@@ -4,6 +4,7 @@ PLEASE DON'T MODIFY THE ORIGINAL DATA FILE tracking_goose_data.csv
 In the tracking_goose_data.csv
 
 Number of missing height data in rows of complete data set  20703
+Number of missing heading data in rows of complete data set  3752
 
 I've (Ulya) Divided the dataset into two, files are:
 migration_spring.txt
