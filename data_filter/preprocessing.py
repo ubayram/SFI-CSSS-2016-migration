@@ -91,14 +91,14 @@ def separateBySeason(fo):
 			heading = line.split(',')[5]
 			height = line.split(',')[6]
 			
-			'''
+			
 			if len(height) == 0:
 				nan_counter += 1
 				height = 'nan'
 			if len(heading) == 0:
 				nan_counter2 += 1
 				heading = 'nan'
-			'''
+			
 
 
 
@@ -116,8 +116,8 @@ def separateBySeason(fo):
 			if bird_id != bird_id2:
 				print "Id Missmatch ", bird_id, " ", bird_id2
 
-			if len(bird_id) == 0:
-				temp1 += 1
+			#if len(bird_id) == 0:
+			#	temp1 += 1
 
 			if 'spring' in current_season:
 				print >> file_spring, date, time_, long_, lat_, heading, height, attribute, attribute_id, bird_id
@@ -126,7 +126,7 @@ def separateBySeason(fo):
 
 	#print 'Number of missing height data in rows of complete data set ', str(nan_counter)
 	#print 'Number of missing heading data in rows of complete data set ', str(nan_counter2)
- 	print temp1
+ 	#print temp1
 
 # Author: Ulya Bayram
 # Function that maps attribute names (string) into specific id's - for easy plotting
