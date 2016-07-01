@@ -74,8 +74,10 @@ def separateBySeason(fo):
 
 	i = 0
 	nan_counter = 0
+	nan_counter2 = 0
+	temp1 = 0
 	for line in fo:
-		if i == 0:
+		if i == 0: # skip the first line containing headers for columns
 			i = 1
 			continue
 		else:
@@ -89,9 +91,16 @@ def separateBySeason(fo):
 			heading = line.split(',')[5]
 			height = line.split(',')[6]
 			
+			'''
 			if len(height) == 0:
 				nan_counter += 1
 				height = 'nan'
+			if len(heading) == 0:
+				nan_counter2 += 1
+				heading = 'nan'
+			'''
+
+
 
 			# attribute is actually migration-stage
 			# but fall vs spring migration is also a stage, so attribute reduces confusion
@@ -107,13 +116,18 @@ def separateBySeason(fo):
 			if bird_id != bird_id2:
 				print "Id Missmatch ", bird_id, " ", bird_id2
 
+			if len(bird_id) == 0:
+				temp1 += 1
+
 			if 'spring' in current_season:
 				print >> file_spring, date, time_, long_, lat_, heading, height, attribute, attribute_id, bird_id
 			if 'fall' in current_season:
 				print >> file_fall, date, time_, long_, lat_, heading, height, attribute, attribute_id, bird_id
 
-	print 'Number of missing height data in rows of complete data set ', str(nan_counter)
- 
+	#print 'Number of missing height data in rows of complete data set ', str(nan_counter)
+	#print 'Number of missing heading data in rows of complete data set ', str(nan_counter2)
+ 	print temp1
+
 # Author: Ulya Bayram
 # Function that maps attribute names (string) into specific id's - for easy plotting
 def findAttributeId(str_):
@@ -127,7 +141,14 @@ def findAttributeId(str_):
 
 	return att_vec.index(str_)
 
+def findMissingData(fo):
 
+	for line in fo:
+		
+		if len(line.split()) == 8:
+			print 'missing still', len(line.split())
+
+'''
 # Author: Ulya Bayram
 def getDay(date_str):
 
@@ -140,4 +161,9 @@ def getDeltaTime():
 # Author: Ulya Bayram
 # Function to compute -average- estimated speed of individual birds given gps tracking data
 def computeIndividualSpeed(file_):
-
+		
+	for line in file_:
+		date_ = line.split()[0]
+		time_ = line.split()[1]
+		long_ = 
+'''
