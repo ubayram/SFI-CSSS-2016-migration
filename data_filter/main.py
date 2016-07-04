@@ -2,10 +2,10 @@
 import preprocessing as pre
 
 
-#fo = open('tracking_goose_data.csv' , 'r')
+fo = open('tracking_goose_data.csv' , 'r')
 
-#pre.separateBySeason(fo)
+pre.separateBySeason(fo)
 
-fo = open('filtered_data/migration_spring.txt', 'r')
-pre.computeIndividualSpeed(fo)
-
+#fo = open('filtered_data/migration_spring.txt', 'r')
+#pre.computeIndividualSpeed(fo)
+#pre.findMissingData(fo)
